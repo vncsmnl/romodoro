@@ -8,9 +8,9 @@ public interface IAudioSink { Task PlayAsync(CancellationToken cancellationToken
 public sealed class CompletionNotifier(INotificationSink notification, IAudioSink audio) : ICompletionNotifier
 {
     public event EventHandler<string>? FallbackRequested;
-    public async Task NotifyAsync(PomodoroStage completed, PomodoroStage next, CancellationToken cancellationToken = default)
+    public async Task NotifyAsync(PomodoroStage completed, PomodoroStage nextStage, CancellationToken cancellationToken = default)
     {
-        var message = $"{Label(completed)} concluído. Hora d{(next == PomodoroStage.Focus ? 'o' : 'a')} {Label(next).ToLowerInvariant()}.";
+        var message = $"{Label(completed)} concluído. Hora d{(nextStage == PomodoroStage.Focus ? 'o' : 'a')} {Label(nextStage).ToLowerInvariant()}.";
         try { await notification.ShowAsync("Romodoro", message, cancellationToken); }
         catch { FallbackRequested?.Invoke(this, message); }
         try { await audio.PlayAsync(cancellationToken); }
@@ -21,5 +21,5 @@ public sealed class CompletionNotifier(INotificationSink notification, IAudioSin
 
 public sealed class NullCompletionNotifier : ICompletionNotifier
 {
-    public Task NotifyAsync(PomodoroStage completed, PomodoroStage next, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task NotifyAsync(PomodoroStage completed, PomodoroStage nextStage, CancellationToken cancellationToken = default) => Task.CompletedTask;
 }

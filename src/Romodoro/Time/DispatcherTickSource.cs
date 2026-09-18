@@ -11,6 +11,6 @@ public sealed class DispatcherTickSource : ITickSource, IDisposable
         _timer.Tick += (_, _) => Tick?.Invoke(this, EventArgs.Empty);
     }
     public void Start() => _timer.Start();
-    public void Stop() => _timer.Stop();
-    public void Dispose() => _timer.Stop();
+    public void StopTicking() => _timer.Stop();
+    public void Dispose() => StopTicking();
 }

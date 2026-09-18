@@ -4,5 +4,5 @@ public interface ITickSource
 {
     event EventHandler? Tick;
     void Start();
-    void Stop();
+    void StopTicking();
 }

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Romodoro.Infrastructure;
 using Romodoro.Time;
 
@@ -23,11 +24,11 @@ public sealed class StopwatchViewModel : BindableBase, IDisposable
         Refresh();
     }
     public void Start() { _ticks.Start(); Refresh(); }
-    public void Stop() => _ticks.Stop();
+    public void Stop() => _ticks.StopTicking();
     private void Toggle() { if (_state.IsRunning) _state.Pause(); else _state.Start(); IsRunning = _state.IsRunning; Refresh(); }
     private void Reset() { _state.Reset(); Laps.Clear(); IsRunning = false; Refresh(); }
-    private void AddLap() { _state.AddLap(); Laps.Clear(); foreach (var lap in _state.Laps) Laps.Add(lap.ToString("hh\\:mm\\:ss")); }
+    private void AddLap() { _state.AddLap(); Laps.Clear(); foreach (var lap in _state.Laps) Laps.Add(lap.ToString("hh\\:mm\\:ss", CultureInfo.InvariantCulture)); }
     private void OnTick(object? sender, EventArgs e) => Refresh();
-    private void Refresh() { ElapsedText = _state.Elapsed.ToString("hh\\:mm\\:ss"); IsRunning = _state.IsRunning; }
-    public void Dispose() { _ticks.Tick -= OnTick; _ticks.Stop(); }
+    private void Refresh() { ElapsedText = _state.Elapsed.ToString("hh\\:mm\\:ss", CultureInfo.InvariantCulture); IsRunning = _state.IsRunning; }
+    public void Dispose() { _ticks.Tick -= OnTick; _ticks.StopTicking(); }
 }

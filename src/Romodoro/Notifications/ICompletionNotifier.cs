@@ -4,5 +4,5 @@ namespace Romodoro.Notifications;
 
 public interface ICompletionNotifier
 {
-    Task NotifyAsync(PomodoroStage completed, PomodoroStage next, CancellationToken cancellationToken = default);
+    Task NotifyAsync(PomodoroStage completed, PomodoroStage nextStage, CancellationToken cancellationToken = default);
 }

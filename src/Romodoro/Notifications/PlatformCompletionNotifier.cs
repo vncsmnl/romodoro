@@ -6,9 +6,9 @@ namespace Romodoro.Notifications;
 public sealed class PlatformCompletionNotifier : ICompletionNotifier
 {
     public event EventHandler<string>? FallbackRequested;
-    public async Task NotifyAsync(PomodoroStage completed, PomodoroStage next, CancellationToken cancellationToken = default)
+    public async Task NotifyAsync(PomodoroStage completed, PomodoroStage nextStage, CancellationToken cancellationToken = default)
     {
-        var message = $"{Label(completed)} concluído — próxima etapa: {Label(next)}.";
+        var message = $"{Label(completed)} concluído — próxima etapa: {Label(nextStage)}.";
         try
         {
             if (OperatingSystem.IsMacOS())
@@ -20,7 +20,17 @@ public sealed class PlatformCompletionNotifier : ICompletionNotifier
             else throw new PlatformNotSupportedException();
         }
         catch { FallbackRequested?.Invoke(this, message); }
-        try { if (OperatingSystem.IsWindows()) Console.Beep(880, 180); else _ = Task.Run(() => { }); } catch { FallbackRequested?.Invoke(this, message); }
+        try
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                Console.Beep(880, 180);
+            }
+        }
+        catch
+        {
+            FallbackRequested?.Invoke(this, message);
+        }
         await Task.CompletedTask;
     }
     private static void Start(string file, string args) => Process.Start(new ProcessStartInfo(file, args) { UseShellExecute = false });

@@ -26,7 +26,7 @@ public sealed class PomodoroViewModel : BindableBase, IDisposable
         ToggleCommand = new(Toggle); ResetCommand = new(Reset); SkipCommand = new(Skip); Refresh();
     }
     public void Start() { _ticks.Start(); Refresh(); }
-    public void Stop() => _ticks.Stop();
+    public void Stop() => _ticks.StopTicking();
     private void Toggle() { if (_state.IsRunning) _state.Pause(); else _state.Start(); Refresh(); }
     private void Reset() { _state.ResetStage(); Refresh(); }
     private void Skip() { var previous = _state.Stage; if (_state.AdvanceIfComplete()) _ = NotifyAsync(previous); Refresh(); }
@@ -44,5 +44,5 @@ public sealed class PomodoroViewModel : BindableBase, IDisposable
         StageText = _state.Stage switch { PomodoroStage.Focus => "Foco", PomodoroStage.ShortBreak => "Pausa curta", _ => "Pausa longa" };
         Progress = _state.Progress; IsRunning = _state.IsRunning;
     }
-    public void Dispose() { _ticks.Tick -= OnTick; _ticks.Stop(); }
+    public void Dispose() { _ticks.Tick -= OnTick; _ticks.StopTicking(); }
 }

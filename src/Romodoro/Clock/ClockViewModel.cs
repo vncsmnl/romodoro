@@ -20,7 +20,7 @@ public sealed class ClockViewModel : BindableBase, IDisposable
         Refresh();
     }
     public void Start() { Refresh(); _ticks.Start(); }
-    public void Stop() => _ticks.Stop();
+    public void Stop() => _ticks.StopTicking();
     private void OnTick(object? sender, EventArgs e) => Refresh();
     private void Refresh()
     {
@@ -29,5 +29,5 @@ public sealed class ClockViewModel : BindableBase, IDisposable
         var date = now.ToString("dddd, dd 'de' MMMM", _culture);
         DateText = char.ToLowerInvariant(date[0]) + date[1..];
     }
-    public void Dispose() { _ticks.Tick -= OnTick; _ticks.Stop(); }
+    public void Dispose() { _ticks.Tick -= OnTick; _ticks.StopTicking(); }
 }

@@ -11,6 +11,6 @@ public sealed class FakeTickSource : ITickSource
 {
     public event EventHandler? Tick;
     public void Start() { }
-    public void Stop() { }
+    public void StopTicking() { }
     public void Pulse() => Tick?.Invoke(this, EventArgs.Empty);
 }
