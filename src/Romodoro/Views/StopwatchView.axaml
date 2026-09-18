@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Romodoro.Views.StopwatchView">
+  <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
+    <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
+      <Grid ColumnDefinitions="*,*,*">
+        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}" Content="Relógio" />
+        <Button Grid.Column="1" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}" Content="Cronômetro" />
+        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}" Content="Pomodoro" />
+      </Grid>
+    </Border>
+    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+      <TextBlock Text="{Binding ElapsedText}" Classes="time stopwatch" HorizontalAlignment="Center" />
+      <TextBlock Text="Em andamento" Classes="date" HorizontalAlignment="Center" />
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,48,0,0">
+        <Button Classes="round" Command="{Binding ResetCommand}" Content="↺" />
+        <Button Classes="round primary" Command="{Binding ToggleCommand}" Content="Ⅱ" />
+        <Button Classes="round" Command="{Binding LapCommand}" Content="⚑" />
+      </StackPanel>
+      <ItemsControl ItemsSource="{Binding Laps}" Margin="0,8,0,0" />
+    </StackPanel>
+  </Grid>
+</UserControl>
