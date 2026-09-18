@@ -2,9 +2,9 @@
   <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
     <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
       <Grid ColumnDefinitions="*,*,*">
-        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><Image Source="/Assets/Icons/clock.svg" Width="24" Height="24"/><TextBlock Text="Relógio"/></StackPanel></Button>
-        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><Image Source="/Assets/Icons/stopwatch.svg" Width="24" Height="24"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
-        <Button Grid.Column="2" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><Image Source="/Assets/Icons/pomodoro.svg" Width="24" Height="24"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><Path Width="24" Height="24" Data="M 12,1 A 11,11 0 1 0 12,23 A 11,11 0 1 0 12,1 M 12,5 L 12,12 L 16,15" Stroke="{DynamicResource SecondaryBrush}" StrokeThickness="2"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><Path Width="24" Height="24" Data="M 12,3 A 9,9 0 1 0 12,21 A 9,9 0 1 0 12,3 M 12,1 L 12,3 M 9,1 L 15,1" Stroke="{DynamicResource SecondaryBrush}" StrokeThickness="2"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><Path Width="24" Height="24" Data="M 12,1 A 11,11 0 1 0 12,23 A 11,11 0 1 0 12,1 M 8,1 L 16,1" Stroke="{DynamicResource AccentBrush}" StrokeThickness="2"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
       </Grid>
     </Border>
     <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
