@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="False" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}" Topmost="{Binding IsTopmost}">
+  <Window.Styles>
+    <Style Selector="TextBlock.time"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="48"/><Setter Property="FontWeight" Value="Medium"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
+    <Style Selector="TextBlock.time.pomo"><Setter Property="FontSize" Value="56"/></Style>
+    <Style Selector="TextBlock.date"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="15"/><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/></Style>
+    <Style Selector="TextBlock.footer"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
+    <Style Selector="Button.mode"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="12"/><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Bottom"/></Style>
+    <Style Selector="Button.mode.active"><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="Button.round"><Setter Property="Width" Value="54"/><Setter Property="Height" Value="54"/><Setter Property="CornerRadius" Value="27"/><Setter Property="Background" Value="#25272B"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/><Setter Property="FontSize" Value="20"/></Style>
+    <Style Selector="Button.round.primary"><Setter Property="Width" Value="58"/><Setter Property="Height" Value="58"/><Setter Property="CornerRadius" Value="29"/><Setter Property="Background" Value="{DynamicResource AccentBrush}"/><Setter Property="Foreground" Value="White"/><Setter Property="FontSize" Value="24"/></Style>
+    <Style Selector="CheckBox.topmost"><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="13"/></Style>
+  </Window.Styles>
+  <Border Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="24" BoxShadow="0 18 21 0 #75000000">
+    <Grid RowDefinitions="*,Auto">
+      <ContentControl Grid.Row="0" Content="{Binding CurrentViewModel}">
+      <ContentControl.DataTemplates>
+        <DataTemplate DataType="{x:Type clock:ClockViewModel}"><views:ClockView/></DataTemplate>
+        <DataTemplate DataType="{x:Type stopwatch:StopwatchViewModel}"><views:StopwatchView/></DataTemplate>
+        <DataTemplate DataType="{x:Type pomodoro:PomodoroViewModel}"><views:PomodoroView/></DataTemplate>
+      </ContentControl.DataTemplates>
+      </ContentControl>
+      <CheckBox Grid.Row="1" Classes="topmost" Content="Sempre no topo" IsChecked="{Binding IsTopmost}" Margin="23,0,0,18" />
+    </Grid>
+  </Border>
+</Window>

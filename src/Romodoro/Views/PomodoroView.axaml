@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="using:Romodoro.Views.Controls" x:Class="Romodoro.Views.PomodoroView">
+  <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
+    <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
+      <Grid ColumnDefinitions="*,*,*">
+        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><Image Source="/Assets/Icons/clock.svg" Width="24" Height="24"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><Image Source="/Assets/Icons/stopwatch.svg" Width="24" Height="24"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><Image Source="/Assets/Icons/pomodoro.svg" Width="24" Height="24"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+      </Grid>
+    </Border>
+    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+      <Grid Width="250" Height="250">
+        <controls:ProgressRing Progress="{Binding Progress}" />
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="4">
+          <TextBlock Text="{Binding TimeText}" Classes="time pomo" HorizontalAlignment="Center" />
+          <TextBlock Text="{Binding StageText}" Classes="date" HorizontalAlignment="Center" />
+        </StackPanel>
+      </Grid>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,22,0,0">
+        <Button Classes="round" Command="{Binding ResetCommand}" Content="↺" />
+        <Button Classes="round primary" Command="{Binding ToggleCommand}" Content="▶" />
+        <Button Classes="round" Command="{Binding SkipCommand}" Content="Ⅱ" />
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

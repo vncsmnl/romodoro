@@ -1,0 +1,8 @@
+<Application xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Romodoro.App" RequestedThemeVariant="Dark">
+  <Application.Resources>
+    <Color x:Key="WindowBackgroundColor">#131416</Color><Color x:Key="SurfaceColor">#1B1C1F</Color><Color x:Key="BorderColor">#383B40</Color><Color x:Key="PrimaryTextColor">#F0F0F2</Color><Color x:Key="SecondaryTextColor">#9699A3</Color><Color x:Key="AccentColor">#FF6661</Color>
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}"/><SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/><SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/><SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}"/><SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/><SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+    <FontFamily x:Key="InterFont">avares://Avalonia.Fonts.Inter/Assets#Inter</FontFamily>
+  </Application.Resources>
+  <Application.Styles><FluentTheme/></Application.Styles>
+</Application>

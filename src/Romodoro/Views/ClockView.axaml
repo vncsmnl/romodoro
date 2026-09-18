@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Romodoro.Views.ClockView">
+  <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
+    <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
+      <Grid ColumnDefinitions="*,*,*">
+        <Button Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><Image Source="/Assets/Icons/clock.svg" Width="24" Height="24"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><Image Source="/Assets/Icons/stopwatch.svg" Width="24" Height="24"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><Image Source="/Assets/Icons/pomodoro.svg" Width="24" Height="24"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+      </Grid>
+    </Border>
+    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+      <TextBlock Text="{Binding TimeText}" Classes="time" HorizontalAlignment="Center" />
+      <TextBlock Text="{Binding DateText}" Classes="date" HorizontalAlignment="Center" />
+    </StackPanel>
+  </Grid>
+</UserControl>

@@ -1,0 +1,8 @@
+using Romodoro.Pomodoro;
+
+namespace Romodoro.Notifications;
+
+public interface ICompletionNotifier
+{
+    Task NotifyAsync(PomodoroStage completed, PomodoroStage next, CancellationToken cancellationToken = default);
+}
