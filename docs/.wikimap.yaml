@@ -1,0 +1,19 @@
+home: docs
+engine: none
+pages:
+  - path: index.md
+    mode: none
+    documents: [README.md, docs/.wikimap.yaml, docs/**/*.md]
+  - path: getting-started.md
+    mode: tutorial
+    documents: [Romodoro.sln, Directory.Build.props, Directory.Packages.props, src/Romodoro/Romodoro.csproj, tests/Romodoro.Tests/Romodoro.Tests.csproj]
+  - path: architecture.md
+    mode: explanation
+    documents: [src/**, tests/**]
+  - path: how-to/use-timers.md
+    mode: how-to
+    documents: [src/Romodoro/Views/**, src/Romodoro/Shell/**, src/Romodoro/Clock/**, src/Romodoro/Stopwatch/**, src/Romodoro/Pomodoro/**]
+  - path: release.md
+    mode: how-to
+    adopted: true
+    documents: [docs/release.md, .github/workflows/release.yml, CHANGELOG.md]
