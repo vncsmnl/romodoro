@@ -124,7 +124,8 @@ jobs:
           ./installer/tests/Verify-Installer.ps1 `
             -IsccPath "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" `
             -PublishDir "publish/$env:RID" `
-            -OutputDir "installer-validation/$env:RID"
+            -OutputDir "installer-validation/$env:RID" `
+            -Architecture '${{ matrix.arch }}'
 
       - name: Package Windows installer and checksum
         if: runner.os == 'Windows'

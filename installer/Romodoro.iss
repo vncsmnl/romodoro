@@ -60,25 +60,13 @@ Name: "{autodesktop}\Romodoro"; Filename: "{app}\Romodoro.exe"; Tasks: desktopic
 Filename: "{app}\Romodoro.exe"; Description: "Launch Romodoro"; Flags: nowait postinstall skipifsilent
 
 [Code]
-function IsRequiredRuntimeInstalled(): Boolean;
+function HasRuntimeVersion(RootKey: Integer; ArchitectureKey: String): Boolean;
 var
-  RootKey: Integer;
-  ArchitectureKey: String;
   KeyName: String;
   VersionNames: TArrayOfString;
   I: Integer;
 begin
   Result := False;
-#if RuntimeArchitecture == "x86"
-  RootKey := HKLM32;
-  ArchitectureKey := 'x86';
-#elseif RuntimeArchitecture == "arm64"
-  RootKey := HKLM64;
-  ArchitectureKey := 'arm64';
-#else
-  RootKey := HKLM64;
-  ArchitectureKey := 'x64';
-#endif
   KeyName := 'SOFTWARE\dotnet\Setup\InstalledVersions\' + ArchitectureKey + '\sharedfx\Microsoft.NETCore.App';
   if RegGetSubkeyNames(RootKey, KeyName, VersionNames) then
   begin
@@ -91,6 +79,18 @@ begin
       end;
     end;
   end;
+end;
+
+function IsRequiredRuntimeInstalled(): Boolean;
+begin
+  Result := False;
+#if RuntimeArchitecture == "x86"
+  Result := HasRuntimeVersion(HKLM32, 'x86');
+#elif RuntimeArchitecture == "arm64"
+  Result := HasRuntimeVersion(HKLM64, 'arm64') or HasRuntimeVersion(HKLM32, 'arm64');
+#else
+  Result := HasRuntimeVersion(HKLM64, 'x64') or HasRuntimeVersion(HKLM32, 'x64');
+#endif
 end;
 
 function DownloadAndInstallRuntime(): String;
