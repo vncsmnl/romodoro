@@ -4,6 +4,7 @@ using Romodoro.Clock;
 using Romodoro.Tests.Fakes;
 
 namespace Romodoro.Tests.Clock;
+
 public class ClockViewModelTests
 {
     [Fact]

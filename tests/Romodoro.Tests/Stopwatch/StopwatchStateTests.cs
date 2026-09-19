@@ -3,6 +3,7 @@ using Romodoro.Stopwatch;
 using Romodoro.Tests.Fakes;
 
 namespace Romodoro.Tests.Stopwatch;
+
 public class StopwatchStateTests
 {
     [Fact]

@@ -3,6 +3,7 @@ using Romodoro.Pomodoro;
 using Romodoro.Tests.Fakes;
 
 namespace Romodoro.Tests.Pomodoro;
+
 public class PomodoroStateTests
 {
     [Fact]

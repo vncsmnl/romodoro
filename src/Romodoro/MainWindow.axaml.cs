@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 
 namespace Romodoro;
+
 public partial class MainWindow : Window
 {
     public MainWindow() => InitializeComponent();

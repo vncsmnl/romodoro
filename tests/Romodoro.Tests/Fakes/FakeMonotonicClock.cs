@@ -1,6 +1,7 @@
 using Romodoro.Time;
 
 namespace Romodoro.Tests.Fakes;
+
 public sealed class FakeMonotonicClock : IMonotonicClock
 {
     public TimeSpan Elapsed { get; private set; }

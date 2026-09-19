@@ -3,6 +3,7 @@ using Romodoro.Notifications;
 using Romodoro.Pomodoro;
 
 namespace Romodoro.Tests.Notifications;
+
 public class CompletionNotifierTests
 {
     [Fact]
