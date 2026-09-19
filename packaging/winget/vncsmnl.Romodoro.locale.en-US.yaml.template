@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.10.0.schema.json
+PackageIdentifier: vncsmnl.Romodoro
+PackageVersion: {{VERSION}}
+PackageLocale: en-US
+Publisher: vncsmnl
+PackageName: Romodoro
+License: Proprietary
+ShortDescription: Relógio, cronômetro e temporizador Pomodoro para desktop.
+PackageUrl: https://github.com/vncsmnl/romodoro
+PublisherUrl: https://github.com/vncsmnl
+ReleaseNotesUrl: https://github.com/vncsmnl/romodoro/releases/tag/v{{VERSION}}
+ManifestType: defaultLocale
+ManifestVersion: 1.10.0

@@ -185,10 +185,28 @@ jobs:
           }
           $lines[$start..($end - 1)] | Set-Content release-notes.md
 
+      - name: Generate WinGet manifest bundle
+        shell: pwsh
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          $version = $env:TAG_NAME.TrimStart('v')
+          $x86 = (Get-ChildItem release-assets -Filter 'Romodoro-win-x86-setup.exe' -Recurse | Select-Object -First 1).FullName
+          $x64 = (Get-ChildItem release-assets -Filter 'Romodoro-win-x64-setup.exe' -Recurse | Select-Object -First 1).FullName
+          $arm64 = (Get-ChildItem release-assets -Filter 'Romodoro-win-arm64-setup.exe' -Recurse | Select-Object -First 1).FullName
+          if (-not $x86 -or -not $x64 -or -not $arm64) { throw 'Windows installers are required to generate WinGet manifests.' }
+          ./build/New-WinGetManifest.ps1 -Version $version -InstallerX86Path $x86 -InstallerX64Path $x64 -InstallerArm64Path $arm64 -OutputDirectory winget-manifest
+          Compress-Archive -Path 'winget-manifest/*' -DestinationPath "Romodoro-$version-winget.zip" -Force
+          $hash = (Get-FileHash "Romodoro-$version-winget.zip" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  Romodoro-$version-winget.zip" | Set-Content "Romodoro-$version-winget.zip.sha256"
+
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           name: Romodoro ${{ github.ref_name }}
           body_path: release-notes.md
-          files: release-assets/*
+          files: |
+            release-assets/*
+            Romodoro-*-winget.zip
+            Romodoro-*-winget.zip.sha256
           generate_release_notes: false

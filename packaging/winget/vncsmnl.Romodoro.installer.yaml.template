@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+PackageIdentifier: vncsmnl.Romodoro
+PackageVersion: {{VERSION}}
+Installers:
+- Architecture: x86
+  InstallerType: inno
+  Scope: machine
+  InstallerUrl: {{URL_X86}}
+  InstallerSha256: {{SHA256_X86}}
+  InstallerSwitches:
+    Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.DotNet.Runtime.10
+- Architecture: x64
+  InstallerType: inno
+  Scope: machine
+  InstallerUrl: {{URL_X64}}
+  InstallerSha256: {{SHA256_X64}}
+  InstallerSwitches:
+    Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.DotNet.Runtime.10
+- Architecture: arm64
+  InstallerType: inno
+  Scope: machine
+  InstallerUrl: {{URL_ARM64}}
+  InstallerSha256: {{SHA256_ARM64}}
+  InstallerSwitches:
+    Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  Dependencies:
+    PackageDependencies:
+    - PackageIdentifier: Microsoft.DotNet.Runtime.10
+ManifestType: installer
+ManifestVersion: 1.10.0

@@ -4,6 +4,8 @@ All notable changes to Romodoro are documented here. Release notes are generated
 
 ## [Unreleased]
 
+- Migrated the application and Windows packaging to .NET 10 with a framework-dependent installer and WinGet manifest generation.
+
 ## [0.2.0] - 2026-09-19
 
 ### Added
