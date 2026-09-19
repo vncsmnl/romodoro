@@ -1,0 +1,16 @@
+{
+  "releases": [
+    {
+      "release-version": "10.0.12",
+      "release-type": "stable",
+      "runtime": {
+        "files": [
+          { "name": "dotnet-runtime-10.0.12-win-x86.exe", "url": "file:///__FIXTURE_ROOT__/dotnet-runtime-10.0.12-win-x86.exe" },
+          { "name": "dotnet-runtime-10.0.12-win-x64.exe", "url": "file:///__FIXTURE_ROOT__/dotnet-runtime-10.0.12-win-x64.exe" },
+          { "name": "dotnet-runtime-10.0.12-win-arm64.exe", "url": "file:///__FIXTURE_ROOT__/dotnet-runtime-10.0.12-win-arm64.exe" },
+          { "name": "dotnet-runtime-10.0.12-linux-x64.tar.gz", "url": "https://example.invalid/linux.tar.gz" }
+        ]
+      }
+    }
+  ]
+}
