@@ -1,10 +1,10 @@
-<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:material="using:Material.Icons.Avalonia" x:Class="Romodoro.Views.ClockView">
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Romodoro.Views.ClockView">
   <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
     <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
       <Grid ColumnDefinitions="*,*,*">
-        <Button Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><material:MaterialIcon Kind="AccessTime" Width="24" Height="24" Foreground="{DynamicResource AccentBrush}"/><TextBlock Text="Relógio"/></StackPanel></Button>
-        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><material:MaterialIcon Kind="Timer" Width="24" Height="24" Foreground="{DynamicResource SecondaryTextBrush}"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
-        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><material:MaterialIcon Kind="LocalPizza" Width="24" Height="24" Foreground="{DynamicResource SecondaryTextBrush}"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+        <Button Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectClockCommand}" AutomationProperties.Name="Abrir relógio"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource AccentBrush}" Data="M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 M12,6 L12,12 L16,14"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}" AutomationProperties.Name="Abrir cronômetro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M9,2 L15,2 M12,2 L12,5 M17,5 L19,7 M12,5 A8,8 0 1 0 12,21 A8,8 0 1 0 12,5 M12,9 L12,13 L15,15"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}" AutomationProperties.Name="Abrir Pomodoro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M8,3 L16,3 M12,3 L12,6 M12,6 A8,8 0 1 0 12,22 A8,8 0 1 0 12,6 M12,10 L12,14"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
       </Grid>
     </Border>
     <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">

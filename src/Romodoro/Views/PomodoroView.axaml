@@ -1,10 +1,10 @@
-<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="using:Romodoro.Views.Controls" xmlns:material="using:Material.Icons.Avalonia" x:Class="Romodoro.Views.PomodoroView">
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="using:Romodoro.Views.Controls" x:Class="Romodoro.Views.PomodoroView">
   <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
     <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
       <Grid ColumnDefinitions="*,*,*">
-        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}"><StackPanel><material:MaterialIcon Kind="AccessTime" Width="24" Height="24" Foreground="{DynamicResource SecondaryTextBrush}"/><TextBlock Text="Relógio"/></StackPanel></Button>
-        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}"><StackPanel><material:MaterialIcon Kind="Timer" Width="24" Height="24" Foreground="{DynamicResource SecondaryTextBrush}"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
-        <Button Grid.Column="2" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}"><StackPanel><material:MaterialIcon Kind="LocalPizza" Width="24" Height="24" Foreground="{DynamicResource AccentBrush}"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}" AutomationProperties.Name="Abrir relógio"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 M12,6 L12,12 L16,14"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}" AutomationProperties.Name="Abrir cronômetro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M9,2 L15,2 M12,2 L12,5 M17,5 L19,7 M12,5 A8,8 0 1 0 12,21 A8,8 0 1 0 12,5 M12,9 L12,13 L15,15"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}" AutomationProperties.Name="Abrir Pomodoro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource AccentBrush}" Data="M8,3 L16,3 M12,3 L12,6 M12,6 A8,8 0 1 0 12,22 A8,8 0 1 0 12,6 M12,10 L12,14"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
       </Grid>
     </Border>
     <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
@@ -16,9 +16,9 @@
         </StackPanel>
       </Grid>
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,22,0,0">
-        <Button Classes="round" Command="{Binding ResetCommand}" Content="↺" />
-        <Button Classes="round primary" Command="{Binding ToggleCommand}" Content="▶" />
-        <Button Classes="round" Command="{Binding SkipCommand}" Content="Ⅱ" />
+        <Button Classes="round" Command="{Binding ResetCommand}" AutomationProperties.Name="Reiniciar Pomodoro"><PathIcon Width="22" Height="22" Data="M12,5 A7,7 0 1 1 5.4,9.7 L3.5,9.1 A9,9 0 1 0 6,4.8 L3,4.8 L3,11 L9,11 L9,9 L6.8,9 A7,7 0 0 1 12,5 Z"/></Button>
+        <Button Classes="round primary" Command="{Binding ToggleCommand}" AutomationProperties.Name="Iniciar ou pausar Pomodoro"><PathIcon Width="22" Height="22" Data="M7,4 L19,12 L7,20 Z"/></Button>
+        <Button Classes="round" Command="{Binding SkipCommand}" AutomationProperties.Name="Pular etapa"><PathIcon Width="22" Height="22" Data="M5,4 L14,12 L5,20 Z M16,4 L19,4 L19,20 L16,20 Z"/></Button>
       </StackPanel>
     </StackPanel>
   </Grid>
