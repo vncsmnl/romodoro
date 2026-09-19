@@ -16,10 +16,13 @@ jobs:
       matrix:
         include:
           - rid: win-x64
+            arch: x64
             runner: windows-latest
           - rid: win-x86
+            arch: x86
             runner: windows-latest
           - rid: win-arm64
+            arch: arm64
             runner: windows-latest
           - rid: linux-x64
             runner: ubuntu-latest
@@ -37,7 +40,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -51,7 +54,19 @@ jobs:
       - name: Restore
         run: dotnet restore Romodoro.sln -r ${{ matrix.rid }}
 
-      - name: Publish self-contained single file
+      - name: Publish Windows framework-dependent build
+        if: runner.os == 'Windows'
+        run: >-
+          dotnet publish src/Romodoro/Romodoro.csproj
+          --configuration Release
+          --no-restore
+          --runtime ${{ matrix.rid }}
+          --self-contained false
+          -p:DebugType=None
+          --output publish/${{ matrix.rid }}
+
+      - name: Publish self-contained Unix build
+        if: runner.os != 'Windows'
         run: >-
           dotnet publish src/Romodoro/Romodoro.csproj
           --configuration Release
@@ -63,7 +78,66 @@ jobs:
           -p:DebugType=None
           --output publish/${{ matrix.rid }}
 
-      - name: Package and checksum
+      - name: Install Inno Setup
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: choco install innosetup --no-progress --yes
+
+      - name: Resolve .NET runtime prerequisite
+        if: runner.os == 'Windows'
+        id: runtime
+        shell: pwsh
+        run: ./build/Resolve-DotNetRuntime.ps1 -Architecture '${{ matrix.arch }}'
+
+      - name: Compile Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          RID: ${{ matrix.rid }}
+          ARCH: ${{ matrix.arch }}
+          VERSION: ${{ github.ref_name }}
+          RUNTIME_VERSION: ${{ steps.runtime.outputs.runtime_version }}
+          RUNTIME_URL: ${{ steps.runtime.outputs.runtime_url }}
+          RUNTIME_SHA256: ${{ steps.runtime.outputs.runtime_sha256 }}
+        run: |
+          $version = $env:VERSION.TrimStart('v')
+          $publish = (Resolve-Path "publish/$env:RID").Path
+          $output = (Resolve-Path .).Path + "\installer-output\$env:RID"
+          New-Item -ItemType Directory -Force -Path $output | Out-Null
+          & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" `
+            "/DAppVersion=$version" `
+            "/DRuntimeArchitecture=$env:ARCH" `
+            "/DRuntimeVersion=$env:RUNTIME_VERSION" `
+            "/DRuntimeUrl=$env:RUNTIME_URL" `
+            "/DRuntimeSha256=$env:RUNTIME_SHA256" `
+            "/DPublishDir=$publish" `
+            "/DOutputDir=$output" `
+            installer/Romodoro.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
+
+      - name: Verify Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          RID: ${{ matrix.rid }}
+        run: |
+          ./installer/tests/Verify-Installer.ps1 `
+            -IsccPath "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" `
+            -PublishDir "publish/$env:RID" `
+            -OutputDir "installer-validation/$env:RID"
+
+      - name: Package Windows installer and checksum
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          RID: ${{ matrix.rid }}
+        run: |
+          $installer = Get-ChildItem "installer-output/$env:RID/*.exe" | Select-Object -First 1
+          if (-not $installer) { throw "No Windows installer was produced for $env:RID" }
+          (Get-FileHash $installer.FullName -Algorithm SHA256).Hash.ToLowerInvariant() + "  $($installer.Name)" | Set-Content "$($installer.FullName).sha256"
+
+      - name: Package Unix build and checksum
+        if: runner.os != 'Windows'
         shell: pwsh
         env:
           RID: ${{ matrix.rid }}
@@ -76,9 +150,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Romodoro-${{ matrix.rid }}
-          path: |
-            Romodoro-${{ matrix.rid }}.zip
-            Romodoro-${{ matrix.rid }}.zip.sha256
+          path: ${{ runner.os == 'Windows' && format('installer-output/{0}/*', matrix.rid) || format('Romodoro-{0}.zip*', matrix.rid) }}
 
   release:
     name: Create GitHub Release
