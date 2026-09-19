@@ -1,21 +1,27 @@
 <UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Romodoro.Views.StopwatchView">
-  <Grid RowDefinitions="78,*,Auto" Margin="15,15,15,0">
+  <Grid RowDefinitions="78,*" Margin="15,15,15,0" MaxWidth="720" HorizontalAlignment="Stretch">
     <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" CornerRadius="18" Padding="0,8">
       <Grid ColumnDefinitions="*,*,*">
-        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}" AutomationProperties.Name="Abrir relógio"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 M12,6 L12,12 L16,14"/><TextBlock Text="Relógio"/></StackPanel></Button>
-        <Button Grid.Column="1" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}" AutomationProperties.Name="Abrir cronômetro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource AccentBrush}" Data="M9,2 L15,2 M12,2 L12,5 M17,5 L19,7 M12,5 A8,8 0 1 0 12,21 A8,8 0 1 0 12,5 M12,9 L12,13 L15,15"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
-        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}" AutomationProperties.Name="Abrir Pomodoro"><StackPanel Spacing="4"><Path Width="22" Height="22" Stretch="Uniform" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M8,3 L16,3 M12,3 L12,6 M12,6 A8,8 0 1 0 12,22 A8,8 0 1 0 12,6 M12,10 L12,14"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
+        <Button Classes="mode" Command="{Binding $parent[Window].DataContext.SelectClockCommand}" AutomationProperties.Name="Abrir relógio"><StackPanel Spacing="4"><Path Width="24" Height="24" Stretch="None" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M12,2 A10,10 0 1 0 12,22 A10,10 0 1 0 12,2 M12,6 L12,12 L16,14"/><TextBlock Text="Relógio"/></StackPanel></Button>
+        <Button Grid.Column="1" Classes="mode active" Command="{Binding $parent[Window].DataContext.SelectStopwatchCommand}" AutomationProperties.Name="Abrir cronômetro"><StackPanel Spacing="4"><Path Width="24" Height="24" Stretch="None" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource AccentBrush}" Data="M9,2 L15,2 M12,2 L12,5 M17,5 L19,7 M12,5 A8,8 0 1 0 12,21 A8,8 0 1 0 12,5 M12,9 L12,13 L15,15"/><TextBlock Text="Cronômetro"/></StackPanel></Button>
+        <Button Grid.Column="2" Classes="mode" Command="{Binding $parent[Window].DataContext.SelectPomodoroCommand}" AutomationProperties.Name="Abrir Pomodoro"><StackPanel Spacing="4"><Path Width="24" Height="24" Stretch="None" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Stroke="{DynamicResource SecondaryTextBrush}" Data="M8,3 L16,3 M12,3 L12,6 M12,6 A8,8 0 1 0 12,22 A8,8 0 1 0 12,6 M12,10 L12,14"/><TextBlock Text="Pomodoro"/></StackPanel></Button>
       </Grid>
     </Border>
-    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
-      <TextBlock Text="{Binding ElapsedText}" Classes="time stopwatch" HorizontalAlignment="Center" />
-      <TextBlock Text="Em andamento" Classes="date" HorizontalAlignment="Center" />
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,48,0,0">
-        <Button Classes="round" Command="{Binding ResetCommand}" AutomationProperties.Name="Reiniciar cronômetro"><PathIcon Width="22" Height="22" Data="M12,5 A7,7 0 1 1 5.4,9.7 L3.5,9.1 A9,9 0 1 0 6,4.8 L3,4.8 L3,11 L9,11 L9,9 L6.8,9 A7,7 0 0 1 12,5 Z"/></Button>
-        <Button Classes="round primary" Command="{Binding ToggleCommand}" AutomationProperties.Name="Iniciar ou pausar cronômetro"><PathIcon Width="22" Height="22" Data="M6,4 L10,4 L10,20 L6,20 Z M14,4 L18,4 L18,20 L14,20 Z"/></Button>
-        <Button Classes="round" Command="{Binding LapCommand}" AutomationProperties.Name="Registrar volta"><PathIcon Width="22" Height="22" Data="M5,2 L7,2 L7,4 L18,4 L15,9 L18,14 L7,14 L7,22 L5,22 Z"/></Button>
-      </StackPanel>
-      <ItemsControl ItemsSource="{Binding Laps}" Margin="0,8,0,0" />
-    </StackPanel>
+    <Grid Grid.Row="1" RowDefinitions="Auto,*" Margin="0,8,0,0">
+      <Viewbox Grid.Row="0" Stretch="Uniform" StretchDirection="DownOnly" Margin="16,8">
+        <StackPanel Width="280" Spacing="8">
+          <TextBlock Text="{Binding ElapsedText}" Classes="time stopwatch" HorizontalAlignment="Center" />
+          <TextBlock Text="Em andamento" Classes="date" HorizontalAlignment="Center" />
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,32,0,0">
+            <Button Classes="round" Command="{Binding ResetCommand}" AutomationProperties.Name="Reiniciar cronômetro"><PathIcon Width="22" Height="22" Data="M12,5 A7,7 0 1 1 5.4,9.7 L3.5,9.1 A9,9 0 1 0 6,4.8 L3,4.8 L3,11 L9,11 L9,9 L6.8,9 A7,7 0 0 1 12,5 Z"/></Button>
+            <Button Classes="round primary" Command="{Binding ToggleCommand}" AutomationProperties.Name="Iniciar ou pausar cronômetro"><PathIcon Width="22" Height="22" Data="M6,4 L10,4 L10,20 L6,20 Z M14,4 L18,4 L18,20 L14,20 Z"/></Button>
+            <Button Classes="round" Command="{Binding LapCommand}" AutomationProperties.Name="Registrar volta"><PathIcon Width="22" Height="22" Data="M5,2 L7,2 L7,4 L18,4 L15,9 L18,14 L7,14 L7,22 L5,22 Z"/></Button>
+          </StackPanel>
+        </StackPanel>
+      </Viewbox>
+      <ScrollViewer Grid.Row="1" Margin="24,4,24,0" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Laps}" />
+      </ScrollViewer>
+    </Grid>
   </Grid>
 </UserControl>

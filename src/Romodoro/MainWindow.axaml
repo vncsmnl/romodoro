@@ -1,4 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="400" Height="680" MinWidth="340" MinHeight="500" Topmost="{Binding IsTopmost}">
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="400" Height="680" MinWidth="320" MinHeight="420" Topmost="{Binding IsTopmost}">
   <Window.Styles>
     <Style Selector="TextBlock.time"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="48"/><Setter Property="FontWeight" Value="Medium"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="TextBlock.time.pomo"><Setter Property="FontSize" Value="56"/></Style>
@@ -6,6 +6,9 @@
     <Style Selector="TextBlock.footer"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="Button.mode"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="12"/><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Bottom"/></Style>
     <Style Selector="Button.mode.active"><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="Button.mode StackPanel"><Setter Property="HorizontalAlignment" Value="Center"/></Style>
+    <Style Selector="Button.mode Path"><Setter Property="HorizontalAlignment" Value="Center"/></Style>
+    <Style Selector="Button.mode TextBlock"><Setter Property="HorizontalAlignment" Value="Center"/></Style>
     <Style Selector="Button.round"><Setter Property="Width" Value="54"/><Setter Property="Height" Value="54"/><Setter Property="CornerRadius" Value="27"/><Setter Property="Background" Value="#25272B"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/><Setter Property="FontSize" Value="20"/></Style>
     <Style Selector="Button.round.primary"><Setter Property="Width" Value="58"/><Setter Property="Height" Value="58"/><Setter Property="CornerRadius" Value="29"/><Setter Property="Background" Value="{DynamicResource AccentBrush}"/><Setter Property="Foreground" Value="White"/><Setter Property="FontSize" Value="24"/></Style>
     <Style Selector="CheckBox.topmost"><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="13"/></Style>
@@ -19,7 +22,7 @@
       <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="8,4,6,0" Background="Transparent">
         <Border Grid.Column="0" Background="Transparent" PointerPressed="TitleBar_OnPointerPressed"/>
         <StackPanel Grid.Column="0" IsHitTestVisible="False" Orientation="Horizontal" VerticalAlignment="Center" Spacing="9" Margin="8,0,0,0">
-          <Image Source="/Assets/AppIcon.png" Width="18" Height="18"/>
+          <Image Source="/Assets/romodoro-alpha.png" Width="22" Height="22" Stretch="Uniform"/>
           <TextBlock Text="Romodoro" VerticalAlignment="Center" FontFamily="{DynamicResource InterFont}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextBrush}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="2">
@@ -38,18 +41,18 @@
         <DataTemplate DataType="{x:Type pomodoro:PomodoroViewModel}"><views:PomodoroView/></DataTemplate>
       </ContentControl.DataTemplates>
       </ContentControl>
-      <CheckBox Grid.Row="2" Classes="topmost" Content="Sempre no topo" IsChecked="{Binding IsTopmost}" Margin="23,0,0,18" />
+      <CheckBox Grid.Row="2" Classes="topmost" Content="Sempre no topo" IsChecked="{Binding IsTopmost}" Margin="23,8,0,14" />
     </Grid>
   </Border>
   <Grid IsHitTestVisible="True">
-    <Border Height="6" VerticalAlignment="Top" Cursor="SizeNorthSouth" Tag="North" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="6" HorizontalAlignment="Right" Cursor="SizeWestEast" Tag="East" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Height="6" VerticalAlignment="Bottom" Cursor="SizeNorthSouth" Tag="South" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="6" HorizontalAlignment="Left" Cursor="SizeWestEast" Tag="West" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="TopLeftCorner" Tag="NorthWest" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="TopRightCorner" Tag="NorthEast" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Cursor="BottomLeftCorner" Tag="SouthWest" PointerPressed="ResizeGrip_OnPointerPressed"/>
-    <Border Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="BottomRightCorner" Tag="SouthEast" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Height="6" VerticalAlignment="Top" Background="Transparent" Cursor="SizeNorthSouth" Tag="North" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="6" HorizontalAlignment="Right" Background="Transparent" Cursor="SizeWestEast" Tag="East" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Height="6" VerticalAlignment="Bottom" Background="Transparent" Cursor="SizeNorthSouth" Tag="South" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="6" HorizontalAlignment="Left" Background="Transparent" Cursor="SizeWestEast" Tag="West" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" Cursor="TopLeftCorner" Tag="NorthWest" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Cursor="TopRightCorner" Tag="NorthEast" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" Cursor="BottomLeftCorner" Tag="SouthWest" PointerPressed="ResizeGrip_OnPointerPressed"/>
+    <Border Width="12" Height="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" Cursor="BottomRightCorner" Tag="SouthEast" PointerPressed="ResizeGrip_OnPointerPressed"/>
   </Grid>
   </Grid>
 </Window>
