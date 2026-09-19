@@ -104,7 +104,7 @@ jobs:
           $publish = (Resolve-Path "publish/$env:RID").Path
           $output = (Resolve-Path .).Path + "\installer-output\$env:RID"
           New-Item -ItemType Directory -Force -Path $output | Out-Null
-          & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" `
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" `
             "/DAppVersion=$version" `
             "/DRuntimeArchitecture=$env:ARCH" `
             "/DRuntimeVersion=$env:RUNTIME_VERSION" `
@@ -122,7 +122,7 @@ jobs:
           RID: ${{ matrix.rid }}
         run: |
           ./installer/tests/Verify-Installer.ps1 `
-            -IsccPath "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" `
+            -IsccPath "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" `
             -PublishDir "publish/$env:RID" `
             -OutputDir "installer-validation/$env:RID" `
             -Architecture '${{ matrix.arch }}'
