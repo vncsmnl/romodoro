@@ -2,7 +2,7 @@
 
 ## Pré-requisitos
 
-Instale o .NET SDK 9.0 ou posterior. O projeto declara `net9.0` nos projetos da aplicação e dos testes.
+Instale o .NET SDK 10.0 ou posterior. O projeto declara `net10.0` nos projetos da aplicação e dos testes.
 
 Confirme a instalação:
 
@@ -10,7 +10,7 @@ Confirme a instalação:
 dotnet --version
 ```
 
-O ambiente usado para verificar esta página retorna `9.0.318`.
+O ambiente usado para verificar esta página retorna `10.0.401`.
 
 ## Restaurar dependências
 

@@ -6,7 +6,7 @@ Romodoro é um relógio, cronômetro e Pomodoro desktop construído com Avalonia
 
 ## Quickstart
 
-Requer .NET SDK 9.0 ou posterior.
+Requer .NET SDK 10.0 ou posterior.
 
 ```bash
 dotnet restore Romodoro.sln
