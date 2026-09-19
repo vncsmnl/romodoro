@@ -24,7 +24,7 @@ public sealed class ClockViewModel : BindableBase, IDisposable
     private void OnTick(object? sender, EventArgs e) => Refresh();
     private void Refresh()
     {
-        var now = _now().ToLocalTime();
+        var now = _now();
         TimeText = now.ToString("HH:mm", _culture);
         var date = now.ToString("dddd, dd 'de' MMMM", _culture);
         DateText = char.ToLowerInvariant(date[0]) + date[1..];

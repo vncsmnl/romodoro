@@ -16,4 +16,16 @@ public class ClockViewModelTests
         sut.TimeText.Should().Be("14:32");
         sut.DateText.Should().Be("sexta-feira, 18 de setembro");
     }
+
+    [Fact]
+    public void Preserves_offset_of_provided_time()
+    {
+        var ticks = new FakeTickSource();
+        var now = new DateTimeOffset(2026, 9, 18, 14, 32, 0, TimeSpan.FromHours(10));
+
+        var sut = new ClockViewModel(ticks, () => now, CultureInfo.GetCultureInfo("pt-BR"));
+
+        sut.TimeText.Should().Be("14:32");
+        sut.DateText.Should().Be("sexta-feira, 18 de setembro");
+    }
 }
