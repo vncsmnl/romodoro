@@ -68,7 +68,7 @@ var
 begin
   Result := False;
   KeyName := 'SOFTWARE\dotnet\Setup\InstalledVersions\' + ArchitectureKey + '\sharedfx\Microsoft.NETCore.App';
-  if RegGetSubkeyNames(RootKey, KeyName, VersionNames) then
+  if RegGetValueNames(RootKey, KeyName, VersionNames) then
   begin
     for I := 0 to GetArrayLength(VersionNames) - 1 do
     begin

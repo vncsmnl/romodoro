@@ -19,6 +19,7 @@ foreach ($required in @(
     'ArchitecturesAllowed=',
     'ArchitecturesInstallIn64BitMode=',
     'Microsoft.NETCore.App',
+    'RegGetValueNames',
     'DownloadTemporaryFile',
     '/install /quiet /norestart',
     'skipifsilent'
