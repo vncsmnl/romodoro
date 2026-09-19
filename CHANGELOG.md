@@ -4,7 +4,26 @@ All notable changes to Romodoro are documented here. Release notes are generated
 
 ## [Unreleased]
 
-- Continue improving visual fidelity and platform-specific notification behavior.
+## [0.2.0] - 2026-09-19
+
+### Added
+
+- Custom title bar with accessible minimize and close controls.
+- Mouse resizing from every window edge and corner.
+- New Romodoro application icon and title-bar branding.
+
+### Changed
+
+- Responsive layouts for the clock, stopwatch, and Pomodoro modes, including a compact `320x420` minimum window size.
+- Scrollable stopwatch laps and proportionally scaling timer controls for smaller windows.
+- Built-in vector icons replace the external Material Icons dependency.
+
+### Fixed
+
+- Removed the shadow artifact around the rounded lower corners.
+- Corrected mode-icon alignment and scaling.
+- Made clock formatting independent of the operating system time zone.
+- Normalized C# whitespace so formatting checks pass consistently on Linux CI runners.
 
 ## [0.1.0] - 2026-09-18
 
