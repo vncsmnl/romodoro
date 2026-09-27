@@ -1,7 +1,14 @@
-<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="400" Height="680" MinWidth="320" MinHeight="420" Topmost="{Binding IsTopmost}">
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}" MinWidth="{Binding MinimumWindowWidth}" MinHeight="{Binding MinimumWindowHeight}" Topmost="{Binding IsTopmost}">
+  <Window.Transitions>
+    <Transitions>
+      <DoubleTransition Property="Width" Duration="0:0:0.22" />
+      <DoubleTransition Property="Height" Duration="0:0:0.22" />
+    </Transitions>
+  </Window.Transitions>
   <Window.Styles>
     <Style Selector="TextBlock.time"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="48"/><Setter Property="FontWeight" Value="Medium"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="TextBlock.time.pomo"><Setter Property="FontSize" Value="56"/></Style>
+    <Style Selector="TextBlock.pill-time"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="27"/><Setter Property="FontWeight" Value="Medium"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="TextBlock.date"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="15"/><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/></Style>
     <Style Selector="TextBlock.footer"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="Button.mode"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="12"/><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Bottom"/></Style>
@@ -17,10 +24,10 @@
     <Style Selector="Button.window-control.close:pointerover"><Setter Property="Background" Value="#C42B1C"/><Setter Property="Foreground" Value="White"/></Style>
   </Window.Styles>
   <Grid>
-  <Border Margin="1" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="20" ClipToBounds="True">
+  <Border Margin="1" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="20" ClipToBounds="True" IsVisible="{Binding IsExpanded}">
     <Grid RowDefinitions="44,*,Auto">
       <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="8,4,6,0" Background="Transparent">
-        <Border Grid.Column="0" Background="Transparent" PointerPressed="TitleBar_OnPointerPressed"/>
+        <Border Grid.Column="0" Background="Transparent" PointerPressed="TitleBar_OnPointerPressed" DoubleTapped="TitleBar_OnDoubleTapped"/>
         <StackPanel Grid.Column="0" IsHitTestVisible="False" Orientation="Horizontal" VerticalAlignment="Center" Spacing="9" Margin="8,0,0,0">
           <Image Source="/Assets/romodoro-alpha.png" Width="22" Height="22" Stretch="Uniform"/>
           <TextBlock Text="Romodoro" VerticalAlignment="Center" FontFamily="{DynamicResource InterFont}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryTextBrush}"/>
@@ -44,7 +51,16 @@
       <CheckBox Grid.Row="2" Classes="topmost" Content="Sempre no topo" IsChecked="{Binding IsTopmost}" Margin="23,8,0,14" />
     </Grid>
   </Border>
-  <Grid IsHitTestVisible="True">
+  <Border Classes="pill" Margin="1" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="36" ClipToBounds="True" IsVisible="{Binding IsPill}" DoubleTapped="Pill_OnDoubleTapped">
+    <ContentControl Content="{Binding CurrentViewModel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+      <ContentControl.DataTemplates>
+        <DataTemplate DataType="{x:Type clock:ClockViewModel}"><TextBlock Text="{Binding TimeText}" Classes="pill-time"/></DataTemplate>
+        <DataTemplate DataType="{x:Type stopwatch:StopwatchViewModel}"><TextBlock Text="{Binding ElapsedText}" Classes="pill-time"/></DataTemplate>
+        <DataTemplate DataType="{x:Type pomodoro:PomodoroViewModel}"><TextBlock Text="{Binding TimeText}" Classes="pill-time"/></DataTemplate>
+      </ContentControl.DataTemplates>
+    </ContentControl>
+  </Border>
+  <Grid IsHitTestVisible="True" IsVisible="{Binding IsExpanded}">
     <Border Height="6" VerticalAlignment="Top" Background="Transparent" Cursor="SizeNorthSouth" Tag="North" PointerPressed="ResizeGrip_OnPointerPressed"/>
     <Border Width="6" HorizontalAlignment="Right" Background="Transparent" Cursor="SizeWestEast" Tag="East" PointerPressed="ResizeGrip_OnPointerPressed"/>
     <Border Height="6" VerticalAlignment="Bottom" Background="Transparent" Cursor="SizeNorthSouth" Tag="South" PointerPressed="ResizeGrip_OnPointerPressed"/>

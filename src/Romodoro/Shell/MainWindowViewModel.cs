@@ -13,12 +13,29 @@ public sealed class MainWindowViewModel : BindableBase, IDisposable
     private readonly PomodoroViewModel _pomodoro;
     private TimerMode _selectedMode = TimerMode.Clock;
     private bool _isTopmost;
+    private bool _isPill;
     private string _fallbackMessage = string.Empty;
     public TimerMode SelectedMode { get => _selectedMode; private set => SetProperty(ref _selectedMode, value); }
     public bool IsTopmost { get => _isTopmost; set => SetProperty(ref _isTopmost, value); }
+    public bool IsPill
+    {
+        get => _isPill;
+        private set
+        {
+            if (!SetProperty(ref _isPill, value)) return;
+            Raise(nameof(IsExpanded));
+            Raise(nameof(WindowWidth));
+            Raise(nameof(WindowHeight));
+            Raise(nameof(MinimumWindowWidth));
+            Raise(nameof(MinimumWindowHeight));
+        }
+    }
+    public bool IsExpanded => !IsPill;
     public string FallbackMessage { get => _fallbackMessage; private set => SetProperty(ref _fallbackMessage, value); }
-    public double WindowWidth => SelectedMode == TimerMode.Pomodoro ? 400 : SelectedMode == TimerMode.Stopwatch ? 340 : 330;
-    public double WindowHeight => SelectedMode == TimerMode.Pomodoro ? 660 : 410;
+    public double WindowWidth => IsPill ? 180 : SelectedMode == TimerMode.Pomodoro ? 400 : SelectedMode == TimerMode.Stopwatch ? 340 : 330;
+    public double WindowHeight => IsPill ? 64 : SelectedMode == TimerMode.Pomodoro ? 660 : 410;
+    public double MinimumWindowWidth => IsPill ? 180 : 320;
+    public double MinimumWindowHeight => IsPill ? 64 : 420;
     public object CurrentViewModel => SelectedMode switch { TimerMode.Clock => _clock, TimerMode.Stopwatch => _stopwatch, _ => _pomodoro };
     public RelayCommand SelectClockCommand { get; }
     public RelayCommand SelectStopwatchCommand { get; }
@@ -42,6 +59,7 @@ public sealed class MainWindowViewModel : BindableBase, IDisposable
         if (mode == TimerMode.Stopwatch) _stopwatch.Start();
         if (mode == TimerMode.Pomodoro) _pomodoro.Start();
     }
+    public void TogglePill() => IsPill = !IsPill;
     public void ShowFallback(string message) => FallbackMessage = message;
     public void Dispose() { _clock.Dispose(); _stopwatch.Dispose(); _pomodoro.Dispose(); }
 }
