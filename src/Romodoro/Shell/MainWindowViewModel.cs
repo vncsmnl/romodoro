@@ -33,7 +33,7 @@ public sealed class MainWindowViewModel : BindableBase, IDisposable
     public bool IsExpanded => !IsPill;
     public string FallbackMessage { get => _fallbackMessage; private set => SetProperty(ref _fallbackMessage, value); }
     public double WindowWidth => IsPill ? 180 : SelectedMode == TimerMode.Pomodoro ? 400 : SelectedMode == TimerMode.Stopwatch ? 340 : 330;
-    public double WindowHeight => IsPill ? 64 : SelectedMode == TimerMode.Pomodoro ? 660 : 410;
+    public double WindowHeight => IsPill ? 64 : SelectedMode == TimerMode.Pomodoro ? 660 : 420;
     public double MinimumWindowWidth => IsPill ? 180 : 320;
     public double MinimumWindowHeight => IsPill ? 64 : 420;
     public object CurrentViewModel => SelectedMode switch { TimerMode.Clock => _clock, TimerMode.Stopwatch => _stopwatch, _ => _pomodoro };

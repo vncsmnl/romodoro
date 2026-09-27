@@ -13,7 +13,7 @@ public class ClockViewModelTests
         var ticks = new FakeTickSource();
         var now = new DateTimeOffset(2026, 9, 18, 14, 32, 0, TimeSpan.FromHours(-3));
         var sut = new ClockViewModel(ticks, () => now, CultureInfo.GetCultureInfo("pt-BR"));
-        sut.TimeText.Should().Be("14:32");
+        sut.TimeText.Should().Be("14:32:00");
         sut.DateText.Should().Be("sexta-feira, 18 de setembro");
     }
 
@@ -25,7 +25,7 @@ public class ClockViewModelTests
 
         var sut = new ClockViewModel(ticks, () => now, CultureInfo.GetCultureInfo("pt-BR"));
 
-        sut.TimeText.Should().Be("14:32");
+        sut.TimeText.Should().Be("14:32:00");
         sut.DateText.Should().Be("sexta-feira, 18 de setembro");
     }
 }

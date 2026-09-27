@@ -1,10 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}" MinWidth="{Binding MinimumWindowWidth}" MinHeight="{Binding MinimumWindowHeight}" Topmost="{Binding IsTopmost}">
-  <Window.Transitions>
-    <Transitions>
-      <DoubleTransition Property="Width" Duration="0:0:0.22" />
-      <DoubleTransition Property="Height" Duration="0:0:0.22" />
-    </Transitions>
-  </Window.Transitions>
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:Romodoro.Views" xmlns:clock="using:Romodoro.Clock" xmlns:stopwatch="using:Romodoro.Stopwatch" xmlns:pomodoro="using:Romodoro.Pomodoro" x:Class="Romodoro.MainWindow" x:Name="RootWindow" Title="Romodoro" Icon="/Assets/AppIcon.ico" Background="Transparent" TransparencyLevelHint="Transparent" WindowDecorations="None" CanResize="True" ShowInTaskbar="True" ExtendClientAreaToDecorationsHint="True" Width="330" Height="420" MinWidth="320" MinHeight="420" Topmost="{Binding IsTopmost}">
   <Window.Styles>
     <Style Selector="TextBlock.time"><Setter Property="FontFamily" Value="{DynamicResource InterFont}"/><Setter Property="FontSize" Value="48"/><Setter Property="FontWeight" Value="Medium"/><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/></Style>
     <Style Selector="TextBlock.time.pomo"><Setter Property="FontSize" Value="56"/></Style>
@@ -51,7 +45,7 @@
       <CheckBox Grid.Row="2" Classes="topmost" Content="Sempre no topo" IsChecked="{Binding IsTopmost}" Margin="23,8,0,14" />
     </Grid>
   </Border>
-  <Border Classes="pill" Margin="1" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="36" ClipToBounds="True" IsVisible="{Binding IsPill}" DoubleTapped="Pill_OnDoubleTapped">
+  <Border Classes="pill" Margin="1" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="36" ClipToBounds="True" IsVisible="{Binding IsPill}" PointerPressed="TitleBar_OnPointerPressed" DoubleTapped="Pill_OnDoubleTapped">
     <ContentControl Content="{Binding CurrentViewModel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
       <ContentControl.DataTemplates>
         <DataTemplate DataType="{x:Type clock:ClockViewModel}"><TextBlock Text="{Binding TimeText}" Classes="pill-time"/></DataTemplate>

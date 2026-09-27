@@ -23,7 +23,7 @@ public partial class App : Application
             var stopwatchVm = new StopwatchViewModel(new StopwatchState(clock), new DispatcherTickSource());
             var pomodoroVm = new PomodoroViewModel(new PomodoroState(clock), new DispatcherTickSource(), notifier);
             var shell = new MainWindowViewModel(clockVm, stopwatchVm, pomodoroVm);
-            var window = new MainWindow { DataContext = shell, Width = shell.WindowWidth, Height = shell.WindowHeight };
+            var window = new MainWindow(shell);
             notifier.FallbackRequested += (_, message) => shell.ShowFallback(message);
             desktop.MainWindow = window;
             desktop.Exit += (_, _) => shell.Dispose();
