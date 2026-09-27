@@ -4,6 +4,13 @@ All notable changes to Romodoro are documented here. Release notes are generated
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-26
+
+### Added
+
+- Compact pill mode for the active timer, with double-click toggling and animated window resizing.
+- Seconds in the clock display.
+
 ## [0.3.0] - 2026-09-19
 
 ### Changed
